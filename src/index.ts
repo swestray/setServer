@@ -14,40 +14,26 @@ const books = [
   },
 ];
 
-type Game = {
-  deck: Deck
-  board: Board
+var thisGame = {
+  deck: thisDeck,
+  board: thisBoard,
+  player: thisPlayer
 }
 
-type Deck = {
-  cards: [Card]
+var thisDeck = {
+  cards: generateDeck()
 }
 
-type Board = {
-  cards: [Card]
+var thisBoard = {
+  cards: []
 }
 
-type Card = {
-  color: Color
-  shape: Shape
-  value: Value
+var thisPlayer = {
+  name: 'Stone',
+  score: 0
 }
 
-enum Color{
-  Red,
-  Green,
-  Purple
-}
-enum Shape{
-  Diamond,
-  Capsule,
-  Squiqqly
-}
-enum Value{
-  Full,
-  Shaded,
-  Empty
-}
+
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
@@ -72,6 +58,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     books: () => books,
+    game: () => Game
   },
 };
 
