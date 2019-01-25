@@ -1,64 +1,41 @@
-const { ApolloServer, gql } = require('apollo-server');
+import { Card } from "./model/card";
+import { Color, Shape, Value } from "./enum/cardAttributes";
 
-// This is a (sample) collection of books we'll be able to query
-// the GraphQL server for.  A more complete example might fetch
-// from an existing data source like a REST API or database.
-const books = [
+const fs = require('fs');
+const path = require('path');
+const { project } = require('./projection');
+
+const Game = require('./model/schema')
+const { ApolloServer } = require('apollo-server');
+
+const deck = [
   {
-    title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling',
+    number: 1,
+    color: Color.Red,
+    shape: Shape.Capsule,
+    value: Value.Empty
   },
   {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton',
-  },
+    number: 2,
+    color: Color.Green,
+    shape: Shape.Diamond,
+    value: Value.Shaded
+  }
 ];
-
-var thisGame = {
-  deck: thisDeck,
-  board: thisBoard,
-  player: thisPlayer
-}
-
-var thisDeck = {
-  cards: generateDeck()
-}
-
-var thisBoard = {
-  cards: []
-}
-
-var thisPlayer = {
-  name: 'Stone',
-  score: 0
-}
-
-
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
-const typeDefs = gql`
-  # Comments in GraphQL are defined with the hash (#) symbol.
-
-  # This "Book" type can be used in other type declarations.
-  type Book {
-    title: String
-    author: String
-  }
-
-  # The "Query" type is the root of all GraphQL queries.
-  # (A "Mutation" type will be covered later on.)
-  type Query {
-    books: [Book]
-  }
-`;
+const typeDefs = fs.readFileSync(path.join(__dirname, './gql/gameTypes.graphql'), 'utf-8');
 
 // Resolvers define the technique for fetching the types in the
 // schema.  We'll retrieve books from the "books" array above.
 const resolvers = {
   Query: {
-    books: () => books,
-    game: () => Game
+    async user(parent, { id }, context, info) {
+      const proj = project(info);
+      const result = await Game.findById(id, proj);
+      return result.toObject();
+    },
   },
 };
 

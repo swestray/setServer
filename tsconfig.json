@@ -1,8 +1,8 @@
 {
     "files": [
       "src/*.ts",
-      "src/model/*.ts",
-      "src/enum/*.ts"
+      "src/enum/*.ts",
+      "src/model/*.ts"
     ],
     "compilerOptions": {
       "target": "es5"

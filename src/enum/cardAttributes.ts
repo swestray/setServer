@@ -1,15 +1,15 @@
-enum Color{
+export enum Color{
     Red,
     Green,
     Purple
-  }
-  enum Shape{
+}
+export enum Shape{
     Diamond,
     Capsule,
     Squiqqly
-  }
-  enum Value{
+}
+export enum Value{
     Full,
     Shaded,
     Empty
-  }
+}
