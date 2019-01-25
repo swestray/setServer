@@ -1,27 +1,9 @@
-import { Card } from "./model/card";
-import { Color, Shape, Value } from "./enum/cardAttributes";
-
 const fs = require('fs');
 const path = require('path');
 const { project } = require('./projection');
 
-const Game = require('./model/schema')
+import { Game } from "./model/schema";
 const { ApolloServer } = require('apollo-server');
-
-const deck = [
-  {
-    number: 1,
-    color: Color.Red,
-    shape: Shape.Capsule,
-    value: Value.Empty
-  },
-  {
-    number: 2,
-    color: Color.Green,
-    shape: Shape.Diamond,
-    value: Value.Shaded
-  }
-];
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
@@ -31,7 +13,7 @@ const typeDefs = fs.readFileSync(path.join(__dirname, './gql/gameTypes.graphql')
 // schema.  We'll retrieve books from the "books" array above.
 const resolvers = {
   Query: {
-    async user(parent, { id }, context, info) {
+    async game(parent, { id }, context, info) {
       const proj = project(info);
       const result = await Game.findById(id, proj);
       return result.toObject();

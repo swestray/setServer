@@ -35,26 +35,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var cardAttributes_1 = require("./enum/cardAttributes");
 var fs = require('fs');
 var path = require('path');
 var project = require('./projection').project;
-var Game = require('./model/schema');
+var schema_1 = require("./model/schema");
 var ApolloServer = require('apollo-server').ApolloServer;
-var deck = [
-    {
-        number: 1,
-        color: cardAttributes_1.Color.Red,
-        shape: cardAttributes_1.Shape.Capsule,
-        value: cardAttributes_1.Value.Empty
-    },
-    {
-        number: 2,
-        color: cardAttributes_1.Color.Green,
-        shape: cardAttributes_1.Shape.Diamond,
-        value: cardAttributes_1.Value.Shaded
-    }
-];
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
 var typeDefs = fs.readFileSync(path.join(__dirname, './gql/gameTypes.graphql'), 'utf-8');
@@ -62,7 +47,7 @@ var typeDefs = fs.readFileSync(path.join(__dirname, './gql/gameTypes.graphql'), 
 // schema.  We'll retrieve books from the "books" array above.
 var resolvers = {
     Query: {
-        user: function (parent, _a, context, info) {
+        game: function (parent, _a, context, info) {
             var id = _a.id;
             return __awaiter(this, void 0, void 0, function () {
                 var proj, result;
@@ -70,7 +55,7 @@ var resolvers = {
                     switch (_b.label) {
                         case 0:
                             proj = project(info);
-                            return [4 /*yield*/, Game.findById(id, proj)];
+                            return [4 /*yield*/, schema_1.Game.findById(id, proj)];
                         case 1:
                             result = _b.sent();
                             return [2 /*return*/, result.toObject()];

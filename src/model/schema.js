@@ -1,8 +1,6 @@
-import { Color, Shape, Value } from "../enum/cardAttributes";
-
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://<stone>:<westray1>@ds143932.mlab.com:43932/set_server_db');
+mongoose.connect('mongodb://stone:westray1@ds143932.mlab.com:43932/set_server_db', { useNewUrlParser: true });
 
 const CardSchema = new mongoose.Schema({
     number: Number,
@@ -31,6 +29,6 @@ const GameSchema = new mongoose.Schema({
     players: [PlayerSchema]
 });
 
- module.exports = {
-     Game: mongoose.model('games', GameSchema),
- };
+module.exports = {
+    Game: mongoose.model('games', GameSchema),
+};

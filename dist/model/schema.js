@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://<stone>:<westray1>@ds143932.mlab.com:43932/set_server_db');
+mongoose.connect('mongodb://stone:westray1@ds143932.mlab.com:43932/set_server_db', { useNewUrlParser: true });
 var CardSchema = new mongoose.Schema({
     number: Number,
     color: Number,
@@ -25,5 +25,5 @@ var GameSchema = new mongoose.Schema({
     players: [PlayerSchema]
 });
 module.exports = {
-    Game: mongoose.model('games', GameSchema),
+    Game: mongoose.model('Game', GameSchema),
 };
