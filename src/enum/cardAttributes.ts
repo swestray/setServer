@@ -6,7 +6,7 @@ export enum Color{
 export enum Shape{
     Diamond,
     Capsule,
-    Squiqqly
+    Squiggly
 }
 export enum Value{
     Full,

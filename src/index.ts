@@ -13,11 +13,16 @@ const typeDefs = fs.readFileSync(path.join(__dirname, './gql/gameTypes.graphql')
 // schema.  We'll retrieve books from the "books" array above.
 const resolvers = {
   Query: {
-    async game(parent, { id }, context, info) {
+    /*async game(parent, { id }, context, info) {
       const proj = project(info);
-      const result = await Game.findById(id, proj);
-      return result.toObject();
-    },
+      const game = await Game.findById(id, proj);
+      return game.toObject();
+    },*/
+    async getGame(parent, { id }, context, info) {
+      const proj = project(info);
+      const game = await Game.findById(id, proj);
+      return game.toObject();
+    }
   },
 };
 

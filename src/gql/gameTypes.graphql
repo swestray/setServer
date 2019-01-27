@@ -1,5 +1,17 @@
+schema{
+    query: Query
+    mutation: Mutation
+}
+
 type Query {
-    game(id: Int!): Game
+    getGame(id: Int!): Game
+}
+
+type Mutation {
+    generateGame(players: players): Game
+    updateGame(): Game
+    deleteGame(): Status
+
 }
 
 type Game {
